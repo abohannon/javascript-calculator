@@ -1,0 +1,32 @@
+body{
+  font-family: 'Roboto', sans-serif;
+  background-color: white;
+}
+
+.title{
+  font-weight: 200;
+  margin-bottom:1rem;
+}
+
+.calculator {
+  height:410px;
+  width:300px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:10%;
+  padding: 10px 10px 20px 10px;
+}
+
+.entry-box {
+  width:100%;
+  background-color: white;
+  height:65px;
+  font-size:36px;
+  padding:0 10px 0 10px;
+  font-weight:100;
+}
+
+button {
+  height:40px;
+  width:50px;
+}
