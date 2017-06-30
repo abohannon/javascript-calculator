@@ -9,7 +9,7 @@ body{
 }
 
 .calculator {
-  height:410px;
+  height:460px;
   width:300px;
   margin-left:auto;
   margin-right:auto;
@@ -26,7 +26,31 @@ body{
   font-weight:100;
 }
 
+.key-area {
+  position:absolute;
+  display:inline-block;
+  height:auto;
+  width:280px;
+}
+
 button {
   height:40px;
   width:50px;
+  margin: 0 4px 10px 8px;
+  border:none;
+}
+
+#zeroButton {
+  width:115px;
+}
+
+#equalButton {
+  height:90px;
+  position:absolute;
+  margin-left: -54px;
+  margin-top:-50px;
+}
+
+.invisible {
+  visibility:hidden;
 }
