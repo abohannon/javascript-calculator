@@ -10,16 +10,25 @@ buttonsArray.filter(function(element) {
 
   if (element.value !== "ac" && element.value !== "ce") {
 
-  element.addEventListener("click", function(e) {
+    element.addEventListener("click", function(e) {
 
-    // var entryValue = this.value;
-    newEntryValue.push(this.value);
+      newEntryValue.push(this.value);
 
-    document.querySelector("#entry").innerHTML = newEntryValue.join("");
+      document.querySelector("#entry").innerHTML = newEntryValue.join("");
 
-  });
+    });
 
-}
+  }
 
+  if (element.value === "ac") {
+
+    element.addEventListener("click", function(e) {
+
+      document.querySelector("#entry").innerHTML = 0;
+      newEntryValue = [];
+
+    });
+
+  }
 
 }, false);
