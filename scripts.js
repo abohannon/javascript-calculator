@@ -1,20 +1,19 @@
-var entryValue = "0";
-document.querySelector("#entry").innerHTML = entryValue;
+var answerValue = "";
 
-var newEntryValue = [];
+var newAnswerValue = [];
 
 var buttonsArray = Array.from(document.getElementsByTagName("button"));
 
 
 buttonsArray.filter(function(element) {
 
-  if (element.value !== "ac" && element.value !== "ce") {
+  if (element.value !== "ac" && element.value !== "ce" && element.value !== "=") {
 
     element.addEventListener("click", function(e) {
 
-      newEntryValue.push(this.value);
+      newAnswerValue.push(this.value);
 
-      document.querySelector("#entry").innerHTML = newEntryValue.join("");
+      document.querySelector("#answer").innerHTML = newAnswerValue.join("");
 
     });
 
@@ -24,8 +23,20 @@ buttonsArray.filter(function(element) {
 
     element.addEventListener("click", function(e) {
 
-      document.querySelector("#entry").innerHTML = 0;
-      newEntryValue = [];
+      document.querySelector("#answer").innerHTML = 0;
+      newAnswerValue = [];
+
+    });
+
+  }
+
+  if (element.value === "=") {
+
+    element.addEventListener("click", function(e) {
+
+      totalString = newAnswerValue.join("");
+
+      document.querySelector("#answer").innerHTML = eval(totalString);
 
     });
 
