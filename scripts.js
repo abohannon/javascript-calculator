@@ -1,44 +1,66 @@
-var answerValue = "";
+var inputs = [];
 
-var newAnswerValue = [];
+var operators = ["*", "/", "+", "-", "="];
+
+var decimal = ".";
+
+var decimalCheck = /\..*/;
 
 var buttonsArray = Array.from(document.getElementsByTagName("button"));
 
-
 buttonsArray.filter(function(element) {
 
-  if (element.value !== "ac" && element.value !== "ce" && element.value !== "=") {
+  element.addEventListener("click", calculations, false);
 
-    element.addEventListener("click", function(e) {
+  function calculations(e) {
 
-      newAnswerValue.push(this.value);
+    // if (inputs[inputs.length - 1] === decimal){
+    //
+    //   buttonsArray[17].removeEventListener("click", calculations);
+    //
+    // }
 
-      document.querySelector("#answer").innerHTML = newAnswerValue.join("");
+    if (decimalCheck.test(inputs) === true){
+      console.log("Only one decimal allowed");
+    }
 
-    });
+    if (inputs.length === 0 && this.value === "."){
 
-  }
+      inputs = ["0"];
 
-  if (element.value === "ac") {
+    }
 
-    element.addEventListener("click", function(e) {
+    if (element.value !== "ac" && element.value !== "ce" && element.value !== "=") {
+
+      inputs.push(this.value);
+
+      document.querySelector("#answer").innerHTML = inputs.join("");
+
+    }
+
+    if (element.value === "ac") {
 
       document.querySelector("#answer").innerHTML = 0;
-      newAnswerValue = [];
 
-    });
+      inputs = [];
 
-  }
+    }
 
-  if (element.value === "=") {
+    if (element.value === "ce") {
 
-    element.addEventListener("click", function(e) {
+      inputs = inputs.slice(0, inputs.length - 1);
 
-      totalString = newAnswerValue.join("");
+      document.querySelector("#answer").innerHTML = inputs.join("");
+
+    }
+
+    if (element.value === "=") {
+
+      totalString = inputs.join("");
 
       document.querySelector("#answer").innerHTML = eval(totalString);
 
-    });
+    }
 
   }
 
