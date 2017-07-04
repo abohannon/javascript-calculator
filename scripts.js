@@ -1,8 +1,18 @@
+/* User Stories:
+
+I can add, subtract, multiply and divide two numbers.
+
+I can clear the input field with a clear button.
+
+I can keep chaining mathematical operations together until I hit the equal button, and the calculator will tell me the correct output.
+
+*/
+
 var inputs = [];
 
 var operators = ["*", "/", "+", "-", "="];
 
-var decimal = ".";
+var decimal = true;
 
 var decimalCheck = /\..*/;
 
@@ -20,16 +30,6 @@ buttonsArray.filter(function(element) {
     //
     // }
 
-    if (decimalCheck.test(inputs) === true){
-      console.log("Only one decimal allowed");
-    }
-
-    if (inputs.length === 0 && this.value === "."){
-
-      inputs = ["0"];
-
-    }
-
     if (element.value !== "ac" && element.value !== "ce" && element.value !== "=") {
 
       inputs.push(this.value);
@@ -38,7 +38,7 @@ buttonsArray.filter(function(element) {
 
     }
 
-    if (element.value === "ac") {
+    else if (element.value === "ac") {
 
       document.querySelector("#answer").innerHTML = 0;
 
@@ -46,7 +46,7 @@ buttonsArray.filter(function(element) {
 
     }
 
-    if (element.value === "ce") {
+    else if (element.value === "ce") {
 
       inputs = inputs.slice(0, inputs.length - 1);
 
@@ -54,11 +54,17 @@ buttonsArray.filter(function(element) {
 
     }
 
-    if (element.value === "=") {
+    else if (element.value === "=") {
 
       totalString = inputs.join("");
 
       document.querySelector("#answer").innerHTML = eval(totalString);
+
+    }
+
+    else if (inputs.length === 0 && this.value === "."){
+
+      inputs = ["0"];
 
     }
 
