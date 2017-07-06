@@ -2,10 +2,6 @@
 <html>
 
 <head>
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 
@@ -16,54 +12,45 @@
 
 <body>
 
-  <div class="container">
+
     <div class="calculator card black">
       <div class="title center-align">
-        <span class="white-text">JAVASCRIPT CALCULATOR</span>
+        <span>JAVASCRIPT CALCULATOR</span>
       </div>
-      <div class="entry-box right-align black white-text">
-        <span id="entry"></span>
-      </div>
+      <div class="window">0</div>
       <!-- begin buttons -->
-      <div class="key-area right-align">
-        <button id="all-clear" value="ac">AC</button>
-        <button id="clear-entry" value="ce">CE</button>
-        <button value=" / ">&divide;</button>
-        <button value=" * ">x</button>
-        <button value="7">7</button>
-        <button value="8">8</button>
-        <button value="9">9</button>
-        <button value=" - ">-</button>
-        <button value="4">4</button>
-        <button value="5">5</button>
-        <button value="6">6</button>
-        <button value=" + ">+</button>
-        <button value="1">1</button>
-        <button value="2">2</button>
-        <button value="3">3</button>
+      <div class="buttons">
+        <!-- first row -->
+        <button id="AC">AC</button>
+        <button id="CE" >CE</button>
+        <button>÷</button>
+        <button>x</button>
+        <!-- second row -->
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>-</button>
+        <!-- third row -->
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>+</button>
+        <!-- fourth row -->
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <!-- fifth row -->
         <button class='invisible'>N</button>
-        <button id="zeroButton" value="0">0</button>
-        <button value=".">.</button>
-        <button class='invisble'>N</button>
-        <button id="equalButton" value="=">=</button>
+        <button id="zeroButton">0</button>
+        <button>.</button>
+        <button class='invisible'>N</button>
+        <button id="equalButton">=</button>
         <!-- end buttons -->
       </div>
-
     </div>
-  </div>
 
 
 
-
-
-
-
-
-
-  <!--Import jQuery before materialize.js-->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
   <script type="text/javascript" src="scripts.js"></script>
 </body>
 
