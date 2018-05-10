@@ -1,73 +1,79 @@
-/* User Stories:
+/*
 
-I can add, subtract, multiply and divide two numbers.
-
-I can clear the input field with a clear button.
-
-I can keep chaining mathematical operations together until I hit the equal button, and the calculator will tell me the correct output.
+Javascript calculator using vanilla JS
+V1.0.0
+created by Adam Bohannon
 
 */
 
-var inputs = [];
+var input = "";
+var operator = ["÷", "x", "-", "+"];
+var operatorFlag = false;
+var dotFlag = false;
+var equation = "";
+var result = "";
+var i;
 
-var operators = ["*", "/", "+", "-", "="];
+var buttons = document.querySelectorAll('.buttons > button');
+var output = document.querySelector('.window');
 
-var decimal = true;
+for (i = 0; i < buttons.length; i++){
+  buttons[i].onclick = function(e){
+    var btnText = this.innerHTML;
+    console.log('operator', operatorFlag);
+    // clear all input
+    if (btnText === 'AC') {
+      input = "";
+      operatorFlag = false;
+      equation = "";
+    // clear one entry
+    } else if (btnText === 'CE') {
+      input = input.slice(0, input.length - 1);
+    // if there isn't a dot present, allow a dot
+    } else if (btnText === '.') {
+      if (input.indexOf('.') === -1 || dotFlag){
+        input += '.';
+        dotFlag = false;
+      }
 
-var decimalCheck = /\..*/;
+    } else if (btnText === "=") {
+      // if an operator is the last input value, slice it and return only numbers
+      if (operator.indexOf(input[input.length - 1]) > -1){
+        input = input.slice(0, input.length - 1);
+      }
+      // otherwise process the input
+      equation = input.replace(/x/g, '*'); // so we can eval, replace x in string with *
+      equation = equation.replace(/÷/g, '/'); // so we can eval, replace ÷ in string with /
+      result = Math.round(eval(equation)*1000000)/1000000; // eval the equation string and round
+      input = result; // send the result to input
+      operatorFlag = true;
 
-var buttonsArray = Array.from(document.getElementsByTagName("button"));
+    } else if (operator.indexOf(btnText) > -1) { // if pressed button is a number/not an operator
+      // and if an operator isn't already present
+      if (operatorFlag) {
+        input += btnText; // add the pressed button to input
+        operatorFlag = false; // and flip the operatorFlag to false
+      } else {
+        input = input.slice(0, input.length - 1) + btnText;
+      }
+      dotFlag = true;
 
-buttonsArray.filter(function(element) {
+    } else {
+      if (result !== "" && operator.indexOf(input[input.length-1]) > -1) {
+        input += btnText;
+        result = "";
+      } else if (result !== "") {
+        input = btnText;
+        result = "";
+      } else {
+        input += btnText;
+      }
 
-  element.addEventListener("click", calculations, false);
-
-  function calculations(e) {
-
-    // if (inputs[inputs.length - 1] === decimal){
-    //
-    //   buttonsArray[17].removeEventListener("click", calculations);
-    //
-    // }
-
-    if (element.value !== "ac" && element.value !== "ce" && element.value !== "=") {
-
-      inputs.push(this.value);
-
-      document.querySelector("#answer").innerHTML = inputs.join("");
+      operatorFlag = true;
 
     }
 
-    else if (element.value === "ac") {
+    output.innerHTML = input;
 
-      document.querySelector("#answer").innerHTML = 0;
-
-      inputs = [];
-
-    }
-
-    else if (element.value === "ce") {
-
-      inputs = inputs.slice(0, inputs.length - 1);
-
-      document.querySelector("#answer").innerHTML = inputs.join("");
-
-    }
-
-    else if (element.value === "=") {
-
-      totalString = inputs.join("");
-
-      document.querySelector("#answer").innerHTML = eval(totalString);
-
-    }
-
-    else if (inputs.length === 0 && this.value === "."){
-
-      inputs = ["0"];
-
-    }
-
-  }
-
-}, false);
+  };
+}
