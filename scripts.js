@@ -1,79 +1,115 @@
+/* eslint-env browser */
 /*
-
 Javascript calculator using vanilla JS
-V1.0.0
+V2.0.0
 created by Adam Bohannon
-
 */
 
-var input = "";
-var operator = ["÷", "x", "-", "+"];
-var operatorFlag = false;
-var dotFlag = false;
-var equation = "";
-var result = "";
-var i;
+const calculator = (function calculatorModule() {
+  let input = '';
+  let operatorFlag = false;
+  let dotFlag = false;
 
-var buttons = document.querySelectorAll('.buttons > button');
-var output = document.querySelector('.window');
+  const operator = ['÷', 'x', '-', '+'];
 
-for (i = 0; i < buttons.length; i++){
-  buttons[i].onclick = function(e){
-    var btnText = this.innerHTML;
-    console.log('operator', operatorFlag);
-    // clear all input
-    if (btnText === 'AC') {
-      input = "";
-      operatorFlag = false;
-      equation = "";
-    // clear one entry
-    } else if (btnText === 'CE') {
-      input = input.slice(0, input.length - 1);
-    // if there isn't a dot present, allow a dot
-    } else if (btnText === '.') {
-      if (input.indexOf('.') === -1 || dotFlag){
-        input += '.';
-        dotFlag = false;
-      }
+  const buttons = document.querySelectorAll('.buttons > button');
+  const output = document.querySelector('.window');
 
-    } else if (btnText === "=") {
-      // if an operator is the last input value, slice it and return only numbers
-      if (operator.indexOf(input[input.length - 1]) > -1){
-        input = input.slice(0, input.length - 1);
-      }
-      // otherwise process the input
-      equation = input.replace(/x/g, '*'); // so we can eval, replace x in string with *
-      equation = equation.replace(/÷/g, '/'); // so we can eval, replace ÷ in string with /
-      result = Math.round(eval(equation)*1000000)/1000000; // eval the equation string and round
-      input = result; // send the result to input
-      operatorFlag = true;
+  // Private Methods
+  function updateView() {
+    output.innerHTML = input;
+  }
 
-    } else if (operator.indexOf(btnText) > -1) { // if pressed button is a number/not an operator
-      // and if an operator isn't already present
-      if (operatorFlag) {
-        input += btnText; // add the pressed button to input
-        operatorFlag = false; // and flip the operatorFlag to false
-      } else {
-        input = input.slice(0, input.length - 1) + btnText;
-      }
+  // Public Methods
+  function clearAll() {
+    input = '';
+    operatorFlag = false;
+    dotFlag = false;
+    updateView();
+  }
+
+  function deleteLast() {
+    input = input.slice(0, input.length - 1);
+    updateView();
+  }
+
+  function addDot() {
+    if (!dotFlag) {
+      input += '.';
       dotFlag = true;
+      updateView();
+    }
+  }
 
-    } else {
-      if (result !== "" && operator.indexOf(input[input.length-1]) > -1) {
-        input += btnText;
-        result = "";
-      } else if (result !== "") {
-        input = btnText;
-        result = "";
+  function addOperator(value) {
+    if (!operatorFlag) {
+      if (input[input.length - 1] === '.') {
+        input = input.slice(0, input.length - 1) + value;
       } else {
-        input += btnText;
+        input += value;
       }
 
       operatorFlag = true;
+      dotFlag = false;
+      updateView();
+    }
+  }
 
+  function calculateSolution() {
+    let equation = '';
+    let result = '';
+
+    if (operator.includes(input[input.length - 1])) {
+      input = input.slice(0, input.length - 1);
     }
 
-    output.innerHTML = input;
+    if (input.length > 0) {
+      equation = input.replace(/x/g, '*');
+      equation = equation.replace(/÷/g, '/');
+      result = eval(equation);
 
+      input = result;
+      operatorFlag = false;
+      updateView();
+    }
+  }
+
+  function updateNumber(value) {
+    input += value;
+    operatorFlag = false;
+    updateView();
+  }
+
+  // Public API
+  return {
+    operator,
+    buttons,
+    clearAll,
+    deleteLast,
+    addDot,
+    addOperator,
+    calculateSolution,
+    updateNumber,
   };
-}
+}());
+
+calculator.buttons.forEach((button) => {
+  button.onclick = () => {
+    const value = button.innerHTML;
+    switch (true) {
+      case (value === 'AC'):
+        return calculator.clearAll();
+      case (value === 'CE'):
+        return calculator.deleteLast();
+      case (value === '.'):
+        return calculator.addDot();
+      case (value === '='):
+        return calculator.calculateSolution();
+      case calculator.operator.includes(value):
+        return calculator.addOperator(value);
+      default:
+        return calculator.updateNumber(value);
+    }
+  };
+});
+

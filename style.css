@@ -1,12 +1,19 @@
-body{
-  font-family: 'Roboto', sans-serif;
-  background-color: white;
+html {
+  background-color: #f0f0f0;
 }
 
-.title{
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.title {
   font-weight: 200;
   margin-bottom:1rem;
   text-align: center;
+}
+
+.title-text {
+  letter-spacing: 3px;
 }
 
 .title span{
@@ -19,13 +26,13 @@ body{
   padding: 17px;
   background-color: black;
   border-radius: 3px;
-  box-shadow: 1px 1px 4px rgb(128, 128, 128);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, .5);
 }
 
 .window {
   width:100%;
   background-color: white;
-  height:45px;
+  min-height:45px;
   font-size:36px;
   padding-right:10px;
   margin-bottom:20px;
@@ -35,6 +42,7 @@ body{
   text-align: right;
   box-sizing:border-box;
   border-radius:3px;
+  word-wrap: break-word;
 }
 
 .buttons {
